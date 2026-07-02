@@ -54,7 +54,7 @@ CLAUDE.md
   3. Data: source Tycho's Mars observations (via Kepler's *Astronomia Nova* tables and/or modern transcriptions — document provenance carefully; this is a research task).
   4. The chapter draft (written collaboratively with Luiz — do not one-shot final prose).
   5. Sims: (a) plot Mars positions from the data, (b) the circle-fit that almost works and fails by 8 arcminutes, (c) the ellipse + equal-areas discovery.
-  6. GitHub Pages deploy pipeline.
+  6. ~~GitHub Pages deploy pipeline.~~ **Done.** Live at https://lfscheidegger.github.io/nullius-in-verba/ — push to main runs typecheck + tests + build, then deploys `dist/` via the Pages artifact flow (`.github/workflows/deploy.yml`).
 
 ## Working conventions
 
