@@ -8,7 +8,7 @@ Luiz is a senior engineer (ex-Facebook/Uber/Nextdoor/Lindy, now Anthropic) with 
 
 ## Tech decisions (strong defaults, not dogma)
 
-These are settled *as of now*. Revisit any of them when — and only when — there is **concrete, demonstrated pain**: a real chapter or sim that the current approach makes hard, slow, or ugly. Hypothetical futures and personal preference don't clear the bar; "the Chapter 23 Schrödinger sim genuinely needs X" does. When a decision changes, update this section in the same PR and note briefly what pain prompted it, so the doc stays the source of truth rather than an archaeology site.
+These are settled *as of now*. Revisit any of them when — and only when — there is **concrete, demonstrated pain**: a real chapter or sim that the current approach makes hard, slow, or ugly. Hypothetical futures and personal preference don't clear the bar; "the Schrödinger-chapter sim genuinely needs X" does. When a decision changes, update this section in the same PR and note briefly what pain prompted it, so the doc stays the source of truth rather than an archaeology site.
 
 - **No framework. No Astro, no React.** A small, hand-rolled static site generator we own: TypeScript (run via `tsx` or compiled), turning Markdown + frontmatter into HTML. Target: a few hundred lines we fully understand. Longevity is a feature — these pages should render in 2040.
 - **Math: KaTeX, rendered at build time.** No client-side math rendering. Inline `$...$`, display `$$...$$`.
@@ -21,11 +21,11 @@ These are settled *as of now*. Revisit any of them when — and only when — th
 
 ```
 /content/
-  spine/          # 01-shadows.md ... 30-standard-model.md
+  spine/          # one .md per spine chapter (the spine itself lives in VISION.md)
   vocab/          # energy.md, calculus-derivatives.md, ...
 /sims/
   common/         # shared plotting/controls/math utilities
-  ch04-kepler/    # one dir per chapter's interactives
+  kepler/         # one dir per chapter's interactives
 /data/            # primary datasets (Tycho's Mars obs, Joule's runs, spectra...)
                   # each with a README: source, provenance, license, units
 /generator/       # the static site generator (TypeScript)
@@ -46,11 +46,11 @@ CLAUDE.md
 
 ## Current status & next milestone
 
-- Spine of 30 chapters is settled (see VISION.md).
-- **Vertical slice: Chapter 4 — "Tycho's Data, Kepler's Laws."** Full article, full polish, the design system born from it. It exercises everything at once: real primary data, a discovery-path narrative, and a data-analysis interactive (fit orbits to Tycho's Mars observations; discover equal areas).
+- The spine — acts, chapters, numbering — lives in VISION.md and only there. It will keep evolving as the content is fleshed out, so don't restate chapter counts or numbers in this file.
+- **Vertical slice: "Tycho's Data, Kepler's Laws"** (the Tycho/Kepler chapter). Full article, full polish, the design system born from it. It exercises everything at once: real primary data, a discovery-path narrative, and a data-analysis interactive (fit orbits to Tycho's Mars observations; discover equal areas).
 - Vertical-slice task order:
   1. ~~Generator MVP: Markdown → HTML with KaTeX, sidenotes, and the backward-link check.~~ **Done.** `npm run build | test | typecheck | serve`. Linking convention: internal links are written as relative `.md` paths (or site-absolute URLs); the build fails on broken links, orphaned sidenotes, and invalid TeX; link direction is editorial, not enforced.
-  2. ~~Design system v1: typography, sidenotes, figure styles.~~ **v1 done** (tokens with `light-dark()` theming + header toggle, typography, Tufte tables, margin-captioned figures; see `/styleguide/`, a `meta` page off the TOC; body serif is XCharter, self-hosted). Final polish waits for real Chapter 4 figures.
+  2. ~~Design system v1: typography, sidenotes, figure styles.~~ **v1 done** (tokens with `light-dark()` theming + header toggle, typography, Tufte tables, margin-captioned figures; see `/styleguide/`, a `meta` page off the TOC; body serif is XCharter, self-hosted). Final polish waits for the vertical-slice chapter's real figures.
   3. Data: source Tycho's Mars observations (via Kepler's *Astronomia Nova* tables and/or modern transcriptions — document provenance carefully; this is a research task).
   4. The chapter draft (written collaboratively with Luiz — do not one-shot final prose).
   5. Sims: (a) plot Mars positions from the data, (b) the circle-fit that almost works and fails by 8 arcminutes, (c) the ellipse + equal-areas discovery.
