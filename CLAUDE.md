@@ -50,7 +50,7 @@ CLAUDE.md
 - **Vertical slice: Chapter 4 — "Tycho's Data, Kepler's Laws."** Full article, full polish, the design system born from it. It exercises everything at once: real primary data, a discovery-path narrative, and a data-analysis interactive (fit orbits to Tycho's Mars observations; discover equal areas).
 - Vertical-slice task order:
   1. ~~Generator MVP: Markdown → HTML with KaTeX, sidenotes, and the backward-link check.~~ **Done.** `npm run build | test | typecheck | serve`. Linking convention: internal links are written as relative `.md` paths (or site-absolute URLs); the build fails on broken links, orphaned sidenotes, and invalid TeX; link direction is editorial, not enforced.
-  2. Design system v1: typography, sidenotes, figure styles.
+  2. ~~Design system v1: typography, sidenotes, figure styles.~~ **v1 done** (tokens with `light-dark()` theming + header toggle, typography, Tufte tables, margin-captioned figures; see `/styleguide/`, a `meta` page off the TOC). Final polish waits for real Chapter 4 figures; body serif still an open task.
   3. Data: source Tycho's Mars observations (via Kepler's *Astronomia Nova* tables and/or modern transcriptions — document provenance carefully; this is a research task).
   4. The chapter draft (written collaboratively with Luiz — do not one-shot final prose).
   5. Sims: (a) plot Mars positions from the data, (b) the circle-fit that almost works and fails by 8 arcminutes, (c) the ellipse + equal-areas discovery.
