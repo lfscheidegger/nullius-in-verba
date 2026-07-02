@@ -1,0 +1,21 @@
+{
+  "name": "by-candlelight",
+  "private": true,
+  "type": "module",
+  "description": "By Candlelight — the story of physics, verifiable to the bottom.",
+  "scripts": {
+    "build": "tsx generator/build.ts",
+    "test": "tsx generator/test/run.ts",
+    "typecheck": "tsc --noEmit",
+    "serve": "python3 -m http.server 8000 --directory dist"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.0.0",
+    "katex": "^0.16.21",
+    "markdown-it": "^14.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}
