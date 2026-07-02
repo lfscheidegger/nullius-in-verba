@@ -31,7 +31,7 @@ Two classes of pages, both equally polished and interactive:
 - **Spine chapters** — the linear narrative of discoveries, meant to be read in sequence.
 - **Vocabulary pages** — standalone, evergreen explanations of key concepts (energy, momentum, calculus, complex numbers, Fourier analysis, symmetry, curvature, ...), introduced exactly when the spine first needs them.
 
-**Linking is strictly backward.** Spine chapters link to vocabulary pages and to earlier chapters, never forward. Lateral links are optional depth, never dependencies. A reader moving linearly never needs anything not yet given.
+**Linking is backward by default.** Spine chapters lean on vocabulary pages and earlier chapters; a reader moving linearly should never *need* anything not yet given. This is editorial discipline, kept by judgment as we write rather than by tooling — an occasional forward glance ("we will meet this idea again with Noether") is welcome so long as it is never a dependency.
 
 ## The spine
 
