@@ -117,6 +117,8 @@ export async function buildSite(rootDir: string, outDir: string): Promise<BuildR
   await writeFile(join(outDir, 'index.html'), indexHtml(spineSorted, vocab))
 
   await cp(join(rootDir, 'design/style.css'), join(outDir, 'style.css'))
+  const fontsDir = join(rootDir, 'design/fonts')
+  if (existsSync(fontsDir)) await cp(fontsDir, join(outDir, 'fonts'), { recursive: true })
   const katexDist = join(dirname(createRequire(import.meta.url).resolve('katex/package.json')), 'dist')
   await cp(join(katexDist, 'katex.min.css'), join(outDir, 'katex/katex.min.css'))
   await cp(join(katexDist, 'fonts'), join(outDir, 'katex/fonts'), { recursive: true })
