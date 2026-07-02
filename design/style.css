@@ -26,6 +26,16 @@
 :root[data-theme='light'] { color-scheme: light; }
 :root[data-theme='dark'] { color-scheme: dark; }
 
+/* The toggle adds .theme-fade for the duration of the switch, so colors
+   crossfade on a deliberate toggle only — never on page load or when the
+   OS changes scheme. SVGs using currentColor follow the color transition. */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-fade, .theme-fade * {
+    transition: background-color 80ms linear, color 80ms linear,
+      border-color 80ms linear;
+  }
+}
+
 * { box-sizing: border-box; }
 
 body {

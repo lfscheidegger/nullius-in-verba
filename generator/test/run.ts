@@ -100,6 +100,8 @@ test('relativeUrl walks between directory URLs', () => {
     assert.match(alpha, /<meta name="color-scheme" content="light dark">/)
     assert.match(alpha, /localStorage\.getItem\('theme'\)/)
     assert.match(alpha, /class="theme-toggle"/)
+    assert.match(alpha, /theme-fade/) // the toggle-only crossfade class
+
   })
 }
 

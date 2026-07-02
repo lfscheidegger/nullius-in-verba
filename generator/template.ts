@@ -21,8 +21,10 @@ document.querySelector('.theme-toggle').addEventListener('click', function () {
   var root = document.documentElement
   var current = root.dataset.theme ||
     (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  root.classList.add('theme-fade')
   root.dataset.theme = current === 'dark' ? 'light' : 'dark'
   localStorage.setItem('theme', root.dataset.theme)
+  setTimeout(function () { root.classList.remove('theme-fade') }, 120)
 })
 </script>`
 
