@@ -1,0 +1,136 @@
+/* By Candlelight — design v0.
+   Just enough Tufte to exercise the generator: measure, margin sidenotes,
+   restrained palette. Design system v1 (typography, figure styles) is the
+   next vertical-slice task and will replace most of this. */
+
+:root {
+  --color-text: #1a1a1a;
+  --color-bg: #fffff8;
+  --color-faint: #767676;
+  --color-rule: #ccc;
+  --color-link: #8b2500;
+  --measure: 34rem;      /* body text column */
+  --margin-col: 16rem;   /* sidenote column */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Charter, Georgia, 'Times New Roman', serif;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  counter-reset: sidenote;
+}
+
+.site-header {
+  padding: 1rem 1.5rem;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+.site-header a { color: var(--color-faint); text-decoration: none; }
+
+main {
+  max-width: calc(var(--measure) + var(--margin-col) + 6rem);
+  margin: 0 auto;
+  padding: 1rem 1.5rem 4rem;
+}
+
+article > * { max-width: var(--measure); }
+
+h1, h2, h3 {
+  font-weight: 400;
+  line-height: 1.2;
+}
+h1 { font-size: 2.2rem; margin: 0.5rem 0 2rem; }
+h2 { font-size: 1.5rem; margin-top: 2.5rem; font-style: italic; }
+
+.chapter-number {
+  margin-bottom: 0;
+  color: var(--color-faint);
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+}
+
+a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+blockquote {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  color: var(--color-faint);
+}
+
+code, pre {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.85em;
+}
+
+/* --- Sidenotes (tufte-css pattern, no JavaScript) ------------------- */
+
+.sidenote-number { counter-increment: sidenote; }
+.sidenote-number::after {
+  content: counter(sidenote);
+  vertical-align: super;
+  font-size: 0.7em;
+  padding: 0 0.1em;
+}
+.sidenote::before {
+  content: counter(sidenote) ' ';
+  vertical-align: super;
+  font-size: 0.7em;
+}
+.sidenote-toggle { display: none; }
+
+.sidenote {
+  float: right;
+  clear: right;
+  width: var(--margin-col);
+  margin-right: calc(-1 * var(--margin-col) - 3rem);
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--color-faint);
+}
+
+/* Narrow screens: the number becomes a toggle; the note expands inline. */
+@media (max-width: 64rem) {
+  .sidenote { display: none; }
+  .sidenote-number { cursor: pointer; }
+  .sidenote-number::after { color: var(--color-link); }
+  .sidenote-toggle:checked + .sidenote {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0.6rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-rule);
+  }
+}
+
+/* --- Math ------------------------------------------------------------ */
+
+.katex-display { margin: 1.4rem 0; }
+.math-error { background: #ffe0e0; }
+
+/* --- Front page and chapter nav -------------------------------------- */
+
+.toc { line-height: 1.9; }
+.toc a { text-decoration: none; }
+
+.chapter-nav {
+  max-width: var(--measure);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-rule);
+}
+.chapter-nav a { text-decoration: none; }
+
+.site-footer {
+  text-align: center;
+  color: var(--color-faint);
+  font-size: 0.85rem;
+  padding: 2rem;
+}
