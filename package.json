@@ -7,6 +7,7 @@
     "build": "tsx generator/build.ts",
     "test": "tsx generator/test/run.ts",
     "typecheck": "tsc --noEmit",
+    "verify:data": "tsx data/tycho-mars/verify.ts",
     "serve": "python3 -m http.server 8000 --directory dist"
   },
   "devDependencies": {

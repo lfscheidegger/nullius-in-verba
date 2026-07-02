@@ -121,11 +121,14 @@ scale is also the chapter's punchline: 8′ was genuinely resolvable.
 ## Open questions carried forward
 
 1. Locate license-verified full-view scans of Opera Omnia vols 10–13.
-2. Settle the calendar of each table entry across the 1582 reform.
-3. Determine whether a scholarly machine-readable transcription exists in
-   Carman 2025's supplementary materials, Gingerich's papers, or the Koot
-   thesis appendices (Utrecht, 2014) — adoption with attribution would still
-   need per-value verification but could save transcription errors.
+2. ~~Settle the calendar of each table entry across the 1582 reform.~~
+   **Settled 2026-07-01 during transcription:** the Ch. 15 table header
+   itself says "Stylo veteri" (old style = Julian), and the Horizons
+   residuals (~1–2′) confirm it — a Gregorian reading would be degrees off.
+3. ~~Adopt an existing machine-readable transcription?~~ **Moot:** we
+   transcribed from the 1609 scan ourselves (see README.md); the only
+   existing digitization checked cell-by-cell (keplersdiscovery.com) turned
+   out to carry four errors against the print.
 4. Pedagogy: how to present the possibly-adjusted pre-1595 entries —
    exclude, flag in the interactive, or teach data provenance with them.
 
