@@ -26,11 +26,11 @@ function test(name: string, fn: () => void): void {
 // --- relativeUrl ------------------------------------------------------
 
 test('relativeUrl walks between directory URLs', () => {
-  assert.equal(relativeUrl('/spine/02-beta/', '/spine/01-alpha/'), '../01-alpha/')
-  assert.equal(relativeUrl('/spine/02-beta/', '/vocab/energy/'), '../../vocab/energy/')
-  assert.equal(relativeUrl('/', '/spine/01-alpha/'), 'spine/01-alpha/')
-  assert.equal(relativeUrl('/spine/01-alpha/', '/'), '../../')
-  assert.equal(relativeUrl('/spine/01-alpha/', '/style.css'), '../../style.css')
+  assert.equal(relativeUrl('/spine/beta/', '/spine/alpha/'), '../alpha/')
+  assert.equal(relativeUrl('/spine/beta/', '/vocab/energy/'), '../../vocab/energy/')
+  assert.equal(relativeUrl('/', '/spine/alpha/'), 'spine/alpha/')
+  assert.equal(relativeUrl('/spine/alpha/', '/'), '../../')
+  assert.equal(relativeUrl('/spine/alpha/', '/style.css'), '../../style.css')
   assert.equal(relativeUrl('/vocab/energy/', '/vocab/energy/'), './')
 })
 
@@ -44,8 +44,8 @@ test('relativeUrl walks between directory URLs', () => {
     assert.deepEqual(errors, [])
   })
 
-  const alpha = await readFile(join(goodOut, 'spine/01-alpha/index.html'), 'utf8')
-  const beta = await readFile(join(goodOut, 'spine/02-beta/index.html'), 'utf8')
+  const alpha = await readFile(join(goodOut, 'spine/alpha/index.html'), 'utf8')
+  const beta = await readFile(join(goodOut, 'spine/beta/index.html'), 'utf8')
 
   test('KaTeX renders at build time', () => {
     assert.match(alpha, /class="katex"/)
@@ -65,15 +65,15 @@ test('relativeUrl walks between directory URLs', () => {
   })
 
   test('internal links are rewritten to relative URLs', () => {
-    assert.match(beta, /href="\.\.\/01-alpha\/"/)
+    assert.match(beta, /href="\.\.\/alpha\/"/)
     assert.match(beta, /href="\.\.\/\.\.\/vocab\/energy\/"/)
-    assert.match(beta, /href="\.\.\/01-alpha\/#anchor"/) // site-absolute form, hash kept
+    assert.match(beta, /href="\.\.\/alpha\/#anchor"/) // site-absolute form, hash kept
   })
 
   test('link direction is not enforced (editorial, not tooling)', () => {
-    assert.match(alpha, /href="\.\.\/02-beta\/"/) // spine forward glance
+    assert.match(alpha, /href="\.\.\/beta\/"/) // spine forward glance
     const energy = readFileSync(join(goodOut, 'vocab/energy/index.html'), 'utf8')
-    assert.match(energy, /href="\.\.\/\.\.\/spine\/01-alpha\/"/) // vocab -> spine
+    assert.match(energy, /href="\.\.\/\.\.\/spine\/alpha\/"/) // vocab -> spine
   })
 
   test('external links pass through untouched', () => {
@@ -89,9 +89,14 @@ test('relativeUrl walks between directory URLs', () => {
     assert.match(beta, /class="nav-prev"[^>]*>&larr; Alpha/)
   })
 
+  test('chapter numbers come from frontmatter, not filenames', () => {
+    assert.match(alpha, /class="chapter-number">Chapter 1</)
+    assert.match(beta, /class="chapter-number">Chapter 2</)
+  })
+
   test('meta pages build at the root and stay off the table of contents', () => {
     const colophon = readFileSync(join(goodOut, 'colophon/index.html'), 'utf8')
-    assert.match(colophon, /href="\.\.\/spine\/01-alpha\/"/) // one level up, not two
+    assert.match(colophon, /href="\.\.\/spine\/alpha\/"/) // one level up, not two
     const index = readFileSync(join(goodOut, 'index.html'), 'utf8')
     assert.doesNotMatch(index, /colophon/i)
   })
@@ -120,6 +125,8 @@ test('relativeUrl walks between directory URLs', () => {
     test(name, () => assert.match(all, pattern))
 
   expectError('broken link fails the build', /broken link "99-nonexistent\.md"/)
+  expectError('numbered spine filename fails the build', /03-gamma\.md: spine filename embeds a chapter number/)
+  expectError('missing chapter frontmatter fails the build', /delta\.md: spine frontmatter needs "chapter: N"/)
   expectError('missing sidenote definition fails the build', /missing sidenote definition \[\^ghost\]/)
   expectError('unused sidenote definition fails the build', /unused sidenote definition \[\^orphan\]/)
   expectError('invalid TeX fails the build', /KaTeX error/)

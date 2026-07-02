@@ -21,7 +21,8 @@ These are settled *as of now*. Revisit any of them when — and only when — th
 
 ```
 /content/
-  spine/          # one .md per spine chapter (the spine itself lives in VISION.md)
+  spine/          # one .md per spine chapter, bare-slug filenames (URLs must
+                  #   survive renumbering); "chapter: N" frontmatter orders them
   vocab/          # energy.md, calculus-derivatives.md, ...
 /sims/
   common/         # shared plotting/controls/math utilities

@@ -1,5 +1,6 @@
 ---
 title: Tycho's Data, Kepler's Laws
+chapter: 8
 ---
 
 > **Draft placeholder.** This page exists so the generator has something real

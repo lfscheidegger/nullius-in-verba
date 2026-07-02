@@ -44,18 +44,24 @@ async function collectPages(contentDir: string, kind: PageKind, errors: string[]
   for (const file of (await readdir(dir)).filter((f) => f.endsWith('.md')).sort()) {
     const sourceRel = `${kind}/${file}`
     const slug = file.slice(0, -3)
-    let number: number | undefined
-    if (kind === 'spine') {
-      const m = /^(\d{2})-./.exec(file)
-      if (!m) {
-        errors.push(`${sourceRel}: spine files must be named NN-slug.md`)
-        continue
-      }
-      number = parseInt(m[1]!, 10)
-    }
     const src = await readFile(join(dir, file), 'utf8')
     const { data, body } = parseFrontmatter(src, sourceRel, errors)
     if (data['title'] === undefined) errors.push(`${sourceRel}: frontmatter is missing "title"`)
+    // Chapter numbers live in frontmatter, not filenames: the spine gets
+    // renumbered as VISION.md evolves, and URLs must survive that.
+    let number: number | undefined
+    if (kind === 'spine') {
+      if (/^\d/.test(file)) {
+        errors.push(`${sourceRel}: spine filename embeds a chapter number — use a bare slug and "chapter: N" frontmatter`)
+        continue
+      }
+      const chapter = data['chapter']
+      if (chapter === undefined || !/^\d+$/.test(chapter)) {
+        errors.push(`${sourceRel}: spine frontmatter needs "chapter: N" (an integer)`)
+        continue
+      }
+      number = parseInt(chapter, 10)
+    }
     pages.push({
       kind,
       sourceRel,

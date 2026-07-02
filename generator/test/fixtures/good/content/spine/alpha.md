@@ -1,5 +1,6 @@
 ---
 title: Alpha
+chapter: 1
 ---
 
 Inline math $E = mc^2$ sits in prose, and prices like $5 or $10 are left
@@ -15,5 +16,5 @@ $$
 $$
 
 External links [pass through](https://example.org/page) untouched, and a
-forward glance at [Beta](02-beta.md) is allowed — link direction is an
+forward glance at [Beta](beta.md) is allowed — link direction is an
 editorial matter, not a build rule.

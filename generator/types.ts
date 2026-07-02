@@ -4,14 +4,14 @@ export type PageKind = 'spine' | 'vocab' | 'meta'
 
 export interface Page {
   kind: PageKind
-  /** Source path relative to content/, e.g. "spine/04-tychos-data-keplers-laws.md". */
+  /** Source path relative to content/, e.g. "spine/tychos-data-keplers-laws.md". */
   sourceRel: string
-  /** Filename without extension, e.g. "04-tychos-data-keplers-laws". */
+  /** Filename without extension, e.g. "tychos-data-keplers-laws". */
   slug: string
-  /** Chapter number, spine pages only. */
+  /** Chapter number, spine pages only — from "chapter: N" frontmatter, never the filename. */
   number?: number
   title: string
-  /** Site-absolute output URL with trailing slash, e.g. "/spine/04-tychos-data-keplers-laws/". */
+  /** Site-absolute output URL with trailing slash, e.g. "/spine/tychos-data-keplers-laws/". */
   url: string
   /** Markdown body (frontmatter stripped). */
   body: string
