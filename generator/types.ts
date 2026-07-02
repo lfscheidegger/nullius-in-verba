@@ -1,4 +1,6 @@
-export type PageKind = 'spine' | 'vocab'
+/** meta pages (styleguide, colophon, ...) build through the same pipeline
+    but live at the site root and stay off the table of contents. */
+export type PageKind = 'spine' | 'vocab' | 'meta'
 
 export interface Page {
   kind: PageKind

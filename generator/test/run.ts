@@ -88,6 +88,19 @@ test('relativeUrl walks between directory URLs', () => {
     assert.match(alpha, /class="nav-next"[^>]*>&rarr; Beta/)
     assert.match(beta, /class="nav-prev"[^>]*>&larr; Alpha/)
   })
+
+  test('meta pages build at the root and stay off the table of contents', () => {
+    const colophon = readFileSync(join(goodOut, 'colophon/index.html'), 'utf8')
+    assert.match(colophon, /href="\.\.\/spine\/01-alpha\/"/) // one level up, not two
+    const index = readFileSync(join(goodOut, 'index.html'), 'utf8')
+    assert.doesNotMatch(index, /colophon/i)
+  })
+
+  test('theme: OS default plus a pre-paint pinned override and a toggle', () => {
+    assert.match(alpha, /<meta name="color-scheme" content="light dark">/)
+    assert.match(alpha, /localStorage\.getItem\('theme'\)/)
+    assert.match(alpha, /class="theme-toggle"/)
+  })
 }
 
 // --- the bad site fails, for every reason it should -------------------

@@ -62,7 +62,7 @@ async function collectPages(contentDir: string, kind: PageKind, errors: string[]
       slug,
       number,
       title: data['title'] ?? slug,
-      url: `/${kind}/${slug}/`,
+      url: kind === 'meta' ? `/${slug}/` : `/${kind}/${slug}/`,
       body,
     })
   }
@@ -75,7 +75,8 @@ export async function buildSite(rootDir: string, outDir: string): Promise<BuildR
 
   const spine = await collectPages(contentDir, 'spine', errors)
   const vocab = await collectPages(contentDir, 'vocab', errors)
-  const pages = [...spine, ...vocab]
+  const meta = await collectPages(contentDir, 'meta', errors)
+  const pages = [...spine, ...vocab, ...meta]
 
   const seenNumbers = new Map<number, Page>()
   for (const p of spine) {
@@ -109,7 +110,7 @@ export async function buildSite(rootDir: string, outDir: string): Promise<BuildR
   for (const page of pages) {
     const i = spineSorted.indexOf(page)
     const nav = page.kind === 'spine' ? { prev: spineSorted[i - 1], next: spineSorted[i + 1] } : {}
-    const outPath = join(outDir, page.kind, page.slug, 'index.html')
+    const outPath = join(outDir, page.url.slice(1), 'index.html')
     await mkdir(dirname(outPath), { recursive: true })
     await writeFile(outPath, documentHtml(page, rendered.get(page)!, nav))
   }
