@@ -195,7 +195,11 @@ figcaption {
   color: var(--ink-faint);
 }
 
-/* Wide screens: figure captions join the sidenotes in the margin. */
+/* Wide screens: figure captions join the sidenotes in the margin. The
+   figcaption must be the figure's FIRST child (valid HTML): a float can
+   never rise above its place in the flow, so a caption written after the
+   image would land below it, not beside it. Full-width figures instead
+   put the figcaption last, and it stays beneath the figure. */
 @media (min-width: 64.05rem) {
   figure:not(.fullwidth) figcaption {
     float: right;
@@ -204,6 +208,12 @@ figcaption {
     margin-right: calc(-1 * (var(--margin-col) + var(--col-gap)));
     margin-top: 0;
   }
+}
+
+/* Narrow screens: no margin column, so restore caption-below-image. */
+@media (max-width: 64rem) {
+  figure:not(.fullwidth) { display: flex; flex-direction: column; }
+  figure:not(.fullwidth) figcaption { order: 1; margin-top: 0.5rem; }
 }
 
 /* Narrow screens: the sidenote number becomes a toggle; notes open inline. */

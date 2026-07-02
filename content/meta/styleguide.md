@@ -47,9 +47,15 @@ solar system:
 ## Figures
 
 Figures carry their captions in the margin, beside the image they describe.
-Direct labeling on the figure beats a legend.
+Direct labeling on the figure beats a legend. Write the `<figcaption>` as
+the figure's *first* child — a float cannot rise above its place in the
+flow, so a caption written after the image would sit below it instead of
+beside it.
 
 <figure>
+<figcaption>An ellipse and its foci. The distances from any point on the
+curve to the two foci sum to a constant. Drawn to scale for eccentricity
+<em>e</em> = 0.83 — far more eccentric than any planet.</figcaption>
 <svg viewBox="0 0 400 220" role="img" aria-label="An ellipse with its two foci marked">
   <ellipse cx="200" cy="110" rx="160" ry="90" fill="none" stroke="currentColor" stroke-width="1.5"/>
   <circle cx="67.7" cy="110" r="3.5" fill="currentColor"/>
@@ -57,13 +63,10 @@ Direct labeling on the figure beats a legend.
   <text x="67.7" y="132" text-anchor="middle" font-size="13" fill="currentColor" font-style="italic">F&#8321;</text>
   <text x="332.3" y="132" text-anchor="middle" font-size="13" fill="currentColor" font-style="italic">F&#8322;</text>
 </svg>
-<figcaption>An ellipse and its foci. The distances from any point on the
-curve to the two foci sum to a constant. Drawn to scale for eccentricity
-<em>e</em> = 0.83 — far more eccentric than any planet.</figcaption>
 </figure>
 
 A figure that needs room can opt out of the measure with
-`class="fullwidth"`; its caption then sits below.
+`class="fullwidth"`; its caption goes *last* and sits below.
 
 <figure class="fullwidth">
 <svg viewBox="0 0 760 160" role="img" aria-label="Two cycles of a sine wave with its axis">
