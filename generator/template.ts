@@ -45,6 +45,7 @@ function shell({ title, url, main }: Shell): string {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>${escapeHtml(title)}</title>
+<link rel="preload" href="${asset('/fonts/xcharter/XCharter-Roman.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${asset('/katex/katex.min.css')}">
 <link rel="stylesheet" href="${asset('/style.css')}">
 ${themeInit}

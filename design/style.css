@@ -26,6 +26,28 @@
 :root[data-theme='light'] { color-scheme: light; }
 :root[data-theme='dark'] { color-scheme: dark; }
 
+/* -- body serif: XCharter (see design/fonts/xcharter/README.md) ------- */
+@font-face {
+  font-family: 'XCharter';
+  src: url('fonts/xcharter/XCharter-Roman.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'XCharter';
+  src: url('fonts/xcharter/XCharter-Italic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'XCharter';
+  src: url('fonts/xcharter/XCharter-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'XCharter';
+  src: url('fonts/xcharter/XCharter-BoldItalic.woff2') format('woff2');
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+
 /* The toggle adds .theme-fade for the duration of the switch, so colors
    crossfade on a deliberate toggle only — never on page load or when the
    OS changes scheme. SVGs using currentColor follow the color transition. */
@@ -42,7 +64,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Charter, Georgia, 'Times New Roman', serif;
+  font-family: 'XCharter', Charter, Georgia, 'Times New Roman', serif;
   font-size: 1.125rem;
   line-height: 1.55;
   counter-reset: sidenote;

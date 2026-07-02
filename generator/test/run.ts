@@ -101,6 +101,10 @@ test('relativeUrl walks between directory URLs', () => {
     assert.match(alpha, /localStorage\.getItem\('theme'\)/)
     assert.match(alpha, /class="theme-toggle"/)
     assert.match(alpha, /theme-fade/) // the toggle-only crossfade class
+  })
+
+  test('the body serif is preloaded', () => {
+    assert.match(alpha, /rel="preload" href="\.\.\/\.\.\/fonts\/xcharter\/XCharter-Roman\.woff2" as="font"/)
 
   })
 }
