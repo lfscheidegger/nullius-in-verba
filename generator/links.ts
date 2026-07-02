@@ -27,14 +27,8 @@ export function relativeUrl(fromDirUrl: string, toUrl: string): string {
  * Builds the per-page link resolver. Authors write internal links either as
  * relative paths to source files ("../vocab/energy.md", "03-copernicus.md")
  * or as site-absolute URLs ("/vocab/energy/"). The resolver rewrites them to
- * page-relative URLs and enforces the linking rules from VISION.md:
- *
- *   - spine -> earlier spine chapter: ok
- *   - spine -> vocab: ok
- *   - spine -> same or later spine chapter: BUILD ERROR (backward links only)
- *   - vocab -> vocab: ok
- *   - vocab -> spine: BUILD ERROR (vocab pages are standalone; a spine link
- *     would smuggle a forward dependency past the check)
+ * page-relative URLs and fails the build on broken targets. Link *direction*
+ * (the backward-only reading discipline) is editorial, not enforced here.
  */
 export function makeLinkResolver(
   page: Page,
@@ -62,22 +56,6 @@ export function makeLinkResolver(
 
     if (target === undefined) {
       errors.push(`${page.sourceRel}: broken link "${href}"`)
-      return null
-    }
-    if (page.kind === 'spine' && target.kind === 'spine' && target.number! >= page.number!) {
-      if (target === page) {
-        errors.push(`${page.sourceRel}: links to itself`)
-      } else {
-        errors.push(
-          `${page.sourceRel}: FORWARD LINK to chapter ${target.number} (${target.sourceRel}) — spine links must point backward`,
-        )
-      }
-      return null
-    }
-    if (page.kind === 'vocab' && target.kind === 'spine') {
-      errors.push(
-        `${page.sourceRel}: vocab page links to spine chapter ${target.sourceRel} — vocab pages must stand alone`,
-      )
       return null
     }
     return relativeUrl(page.url, target.url) + hash

@@ -1,7 +1,7 @@
 // Generator test suite: builds two fixture sites and asserts on the output.
 // Run with `npm test`.
 import assert from 'node:assert/strict'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { readFile, rm } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -70,6 +70,12 @@ test('relativeUrl walks between directory URLs', () => {
     assert.match(beta, /href="\.\.\/01-alpha\/#anchor"/) // site-absolute form, hash kept
   })
 
+  test('link direction is not enforced (editorial, not tooling)', () => {
+    assert.match(alpha, /href="\.\.\/02-beta\/"/) // spine forward glance
+    const energy = readFileSync(join(goodOut, 'vocab/energy/index.html'), 'utf8')
+    assert.match(energy, /href="\.\.\/\.\.\/spine\/01-alpha\/"/) // vocab -> spine
+  })
+
   test('external links pass through untouched', () => {
     assert.match(alpha, /href="https:\/\/example\.org\/page"/)
   })
@@ -94,11 +100,9 @@ test('relativeUrl walks between directory URLs', () => {
   const expectError = (name: string, pattern: RegExp) =>
     test(name, () => assert.match(all, pattern))
 
-  expectError('forward spine link fails the build', /FORWARD LINK to chapter 2/)
   expectError('broken link fails the build', /broken link "99-nonexistent\.md"/)
   expectError('missing sidenote definition fails the build', /missing sidenote definition \[\^ghost\]/)
   expectError('unused sidenote definition fails the build', /unused sidenote definition \[\^orphan\]/)
-  expectError('vocab->spine link fails the build', /vocab page links to spine/)
   expectError('invalid TeX fails the build', /KaTeX error/)
 
   test('a failing build writes nothing', () => {

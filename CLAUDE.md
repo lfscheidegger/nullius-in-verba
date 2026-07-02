@@ -37,7 +37,7 @@ CLAUDE.md
 
 ## Content rules (from VISION.md, operationalized)
 
-- **Backward links only.** A spine chapter may link to vocab pages and earlier chapters, never forward. The generator should *enforce* this: fail the build on a forward link from the spine.
+- **Backward links by default.** A spine chapter should be readable with only vocab pages and earlier chapters; keep that discipline editorially as we write. The build does *not* enforce link direction (enforcement was built, then removed 2026-07-01 as too strict — forward glances are legitimate). The build still fails on broken internal links, orphaned/missing sidenotes, and invalid TeX.
 - **Real data is sacred.** Every dataset in `/data/` needs provenance documented. Never fabricate "realistic" numbers where primary data exists. When data is digitized from historical sources, document the digitization.
 - **No lies-to-children in sims.** Numerical methods (RK4, finite differences, Monte Carlo) are fine and expected; conceptual simplifications that misrepresent the physics are not. If a sim must approximate, the approximation is disclosed in a sidenote.
 - **Idealized historical path is fine; footnote the bends.** When the narrative departs from real history for clarity, a sidenote confesses it.
@@ -49,7 +49,7 @@ CLAUDE.md
 - Spine of 30 chapters is settled (see VISION.md).
 - **Vertical slice: Chapter 4 — "Tycho's Data, Kepler's Laws."** Full article, full polish, the design system born from it. It exercises everything at once: real primary data, a discovery-path narrative, and a data-analysis interactive (fit orbits to Tycho's Mars observations; discover equal areas).
 - Vertical-slice task order:
-  1. ~~Generator MVP: Markdown → HTML with KaTeX, sidenotes, and the backward-link check.~~ **Done.** `npm run build | test | typecheck | serve`. Linking convention: internal links are written as relative `.md` paths (or site-absolute URLs); the build fails on forward spine links, vocab→spine links, broken links, orphaned sidenotes, and invalid TeX.
+  1. ~~Generator MVP: Markdown → HTML with KaTeX, sidenotes, and the backward-link check.~~ **Done.** `npm run build | test | typecheck | serve`. Linking convention: internal links are written as relative `.md` paths (or site-absolute URLs); the build fails on broken links, orphaned sidenotes, and invalid TeX; link direction is editorial, not enforced.
   2. Design system v1: typography, sidenotes, figure styles.
   3. Data: source Tycho's Mars observations (via Kepler's *Astronomia Nova* tables and/or modern transcriptions — document provenance carefully; this is a research task).
   4. The chapter draft (written collaboratively with Luiz — do not one-shot final prose).

@@ -14,4 +14,6 @@ $$
 \oint_{\partial\Sigma} \mathbf{B}\cdot d\boldsymbol{\ell} = \mu_0 I
 $$
 
-External links [pass through](https://example.org/page) untouched.
+External links [pass through](https://example.org/page) untouched, and a
+forward glance at [Beta](02-beta.md) is allowed — link direction is an
+editorial matter, not a build rule.
