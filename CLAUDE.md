@@ -49,7 +49,7 @@ CLAUDE.md
 - Spine of 30 chapters is settled (see VISION.md).
 - **Vertical slice: Chapter 4 — "Tycho's Data, Kepler's Laws."** Full article, full polish, the design system born from it. It exercises everything at once: real primary data, a discovery-path narrative, and a data-analysis interactive (fit orbits to Tycho's Mars observations; discover equal areas).
 - Vertical-slice task order:
-  1. Generator MVP: Markdown → HTML with KaTeX, sidenotes, and the backward-link check.
+  1. ~~Generator MVP: Markdown → HTML with KaTeX, sidenotes, and the backward-link check.~~ **Done.** `npm run build | test | typecheck | serve`. Linking convention: internal links are written as relative `.md` paths (or site-absolute URLs); the build fails on forward spine links, vocab→spine links, broken links, orphaned sidenotes, and invalid TeX.
   2. Design system v1: typography, sidenotes, figure styles.
   3. Data: source Tycho's Mars observations (via Kepler's *Astronomia Nova* tables and/or modern transcriptions — document provenance carefully; this is a research task).
   4. The chapter draft (written collaboratively with Luiz — do not one-shot final prose).
